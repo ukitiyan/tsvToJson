@@ -38,13 +38,18 @@ func main() {
 	}
 
 	var content []byte
+	var recordCount int32
 	content = append(content, "[\n"...)
+	recordCount = 0
 	for {
 		record, err := reader.Read()
 		if err == io.EOF {
 			break
 		} else if err != nil {
 			panic(err)
+		}
+		if recordCount != 0 {
+			content = append(content, ",\n"...)
 		}
 		content = append(content, "{"...)
 		for i := 0; i < len(jsondefs); i++ {
@@ -57,7 +62,9 @@ func main() {
 				content = append(content, ", "...)
 			}
 		}
-		content = append(content, "}\n"...)
+		content = append(content, "}"...)
+		recordCount++
 	}
+	content = append(content, "\n]"...)
 	ioutil.WriteFile(os.Args[2], content, os.ModePerm)
 }
