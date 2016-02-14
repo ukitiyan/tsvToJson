@@ -7,4 +7,4 @@
     * tsvの0カラム目をjsonのkeyという項目名で出力
   
 * コマンド例
-  * `$ go run tsvToJson.go digital_20160130.tsv digital.json 0:key 7:title 14:author`
+  * `$ go run tsvToJson.go digital_20160130.tsv digital.json 0:_key 7:title 14:author`
